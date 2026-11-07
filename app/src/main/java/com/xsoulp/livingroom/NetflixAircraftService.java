@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.content.*;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
-import android.media.*;
 import android.media.session.*;
 import android.os.*;
 import android.provider.Settings;
@@ -33,12 +32,10 @@ public final class NetflixAircraftService extends NotificationListenerService {
     private MediaSessionManager sessions;
     private WindowManager windows;
     private SharedPreferences prefs;
-    private SoundPool sound;
-    private int soundId,stream,generation,failures;
-    private volatile boolean soundReady;
+    private int generation,failures;
     private boolean connected,active,busy,destroyed;
     private long nextFetch;
-    private int polls,detected,shown,whooshes;
+    private int polls,detected,shown;
     private String lastFlight="",lastError="";
     private NetflixAircraftView overlay;
     private final Runnable pollTick=this::poll;
@@ -49,7 +46,6 @@ public final class NetflixAircraftService extends NotificationListenerService {
     };
     private final SharedPreferences.OnSharedPreferenceChangeListener preferenceListener=(p,k) -> {
         if("netflixAircraftOverlay".equals(k))reconcile();
-        if("backgroundMusic".equals(k) && !p.getBoolean(k,true))stopSound();
     };
     private final BroadcastReceiver screenReceiver=new BroadcastReceiver() {
         @Override public void onReceive(Context c,Intent i) {reconcile();}
@@ -73,10 +69,6 @@ public final class NetflixAircraftService extends NotificationListenerService {
         windows=(WindowManager)getSystemService(WINDOW_SERVICE);
         sessions=(MediaSessionManager)getSystemService(MEDIA_SESSION_SERVICE);
         prefs=getSharedPreferences("room",MODE_PRIVATE);prefs.registerOnSharedPreferenceChangeListener(preferenceListener);
-        sound=new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(new AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build()).build();
-        sound.setOnLoadCompleteListener((pool,id,status) -> {if(id==soundId)soundReady=status==0;});
-        soundId=sound.load(this,R.raw.airplane_whoosh,1);
         IntentFilter filter=new IntentFilter();filter.addAction(Intent.ACTION_SCREEN_ON);filter.addAction(Intent.ACTION_SCREEN_OFF);
         if(Build.VERSION.SDK_INT>=33)registerReceiver(screenReceiver,filter,Context.RECEIVER_NOT_EXPORTED);
         else registerReceiver(screenReceiver,filter);
@@ -204,7 +196,7 @@ public final class NetflixAircraftService extends NotificationListenerService {
     private void show(List<BridgeFlightTracker.Event> events) {
         if(!eligible())return;
         if(overlay==null) {
-            overlay=new NetflixAircraftView(this,this::whoosh,this::hideOverlay);
+            overlay=new NetflixAircraftView(this,this::hideOverlay);
             Point size=new Point();windows.getDefaultDisplay().getRealSize(size);
             int type=Build.VERSION.SDK_INT>=26?WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY:WindowManager.LayoutParams.TYPE_PHONE;
             WindowManager.LayoutParams params=new WindowManager.LayoutParams(-1,Math.round(size.y*.22f),type,
@@ -217,15 +209,8 @@ public final class NetflixAircraftService extends NotificationListenerService {
         }
         lastFlight=events.get(events.size()-1).label;overlay.add(events);
     }
-    private void whoosh() {
-        if(!eligible() || !prefs.getBoolean("backgroundMusic",true) || !soundReady)return;
-        stopSound();stream=sound.play(soundId,.12f,.12f,1,0,1);if(stream!=0)whooshes++;
-        // Deliberately no audio-focus request and no media transport controls.
-    }
-    private void stopSound() {if(stream!=0 && sound!=null){sound.stop(stream);stream=0;}}
     private void hideOverlay() {
         if(overlay!=null) {overlay.stop();try {windows.removeViewImmediate(overlay);}catch(RuntimeException ignored){}overlay=null;}
-        stopSound();
     }
     @Override protected void dump(FileDescriptor fd,PrintWriter writer,String[] args) {
         JSONObject status=new JSONObject();
@@ -237,7 +222,8 @@ public final class NetflixAircraftService extends NotificationListenerService {
             .put("screenOn",interactive()).put("overlayAllowed",Settings.canDrawOverlays(this))
             .put("launcherVisible",launcherVisible).put("foreground",foregroundPackage==null?JSONObject.NULL:foregroundPackage)
             .put("polls",polls).put("detected",detected).put("windowsShown",shown).put("visible",overlay!=null)
-            .put("whooshReady",soundReady).put("whooshes",whooshes).put("lastFlight",lastFlight).put("error",lastError);}
+            .put("soundEnabled",false).put("aircraftScale",AircraftPainter.VIDEO_SCALE)
+            .put("lastFlight",lastFlight).put("error",lastError);}
         catch(Exception ignored){}
         writer.println(status.toString());
     }
@@ -245,7 +231,7 @@ public final class NetflixAircraftService extends NotificationListenerService {
         destroyed=true;active=false;generation++;handler.removeCallbacksAndMessages(null);hideOverlay();
         detachControllers();if(sessions!=null)sessions.removeOnActiveSessionsChangedListener(sessionListener);
         prefs.unregisterOnSharedPreferenceChangeListener(preferenceListener);unregisterReceiver(screenReceiver);
-        if(sound!=null)sound.release();worker.shutdownNow();playbackWorker.shutdownNow();if(instance==this)instance=null;
+        worker.shutdownNow();playbackWorker.shutdownNow();if(instance==this)instance=null;
         super.onDestroy();
     }
 }

@@ -19,7 +19,8 @@ and Kids rooms. Browse your media as books on a shelf using your TV remote.
   location configuration when building.
 - **Live aircraft:** real flight detections near Lisbon's Ponte 25 de Abril trigger
   manga planes with airline-coloured tails and a pass-by sound. Optional overlays
-  also work with supported Netflix/Jellyfin playback and Android permissions.
+  also work with supported Netflix/Jellyfin playback and Android permissions;
+  planes over video are half-size and silent.
 
 | Adults room | Kids room |
 | --- | --- |

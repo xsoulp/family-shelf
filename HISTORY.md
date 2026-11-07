@@ -7,6 +7,13 @@ may have been superseded. Use the [README](README.md) for current setup and
 and exact external library/filename matching keys are preserved. Personal names
 and local addresses have been replaced with generic examples.
 
+## Silent, smaller aircraft over video — version 0.15.3
+
+Aircraft over Netflix/Jellyfin now render at half their previous width and height,
+with readable callsign/airline text. Removed the video overlay's sound player and
+flyby cue, so streaming aircraft remain silent regardless of the music setting.
+Screensaver aircraft keep their existing size and pass-by sound.
+
 ## Creator credit and public APK workflow — version 0.15.2
 
 Added a persistent © xsoulp 2026 credit to room/screensaver and Jellyfin connection

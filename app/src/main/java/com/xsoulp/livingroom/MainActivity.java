@@ -404,7 +404,7 @@ public final class MainActivity extends Activity {
                 else if(which==1)safeStart(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,Uri.parse("package:"+getPackageName())));
                 else if(which==2)safeStart(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
                 else dialog=new CreatorCredit.DialogBuilder(this).setTitle("Aircraft over Netflix & Jellyfin")
-                    .setMessage("Real bridge-area flight detections appear as small aircraft over Netflix or Jellyfin while a video is playing. "
+                    .setMessage("Real bridge-area flight detections appear as small, silent aircraft over Netflix or Jellyfin while a video is playing. "
                         +"They do not take focus or handle remote buttons. Android overlay and notification access are needed to observe playback state. "
                         +"Notification messages and screen contents are not read. Bonito music remains in the outdoor screensaver. Flight data: ADSB.lol (https://www.adsb.lol/), Open Database License (ODbL) 1.0 (https://opendatacommons.org/licenses/odbl/1-0/).")
                     .setPositiveButton("OK",null).show();

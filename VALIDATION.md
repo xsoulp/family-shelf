@@ -6,6 +6,24 @@ for earlier design notes. Historical entries retain technical identifiers and
 observed media names from their original checks. Older device results do not
 establish that a later version was installed or tested on TV.
 
+## Silent, smaller video aircraft — version 0.15.3
+
+- Removed SoundPool creation, loading, playback and flyby callbacks from the video
+  overlay service/view. Aircraft over Netflix/Jellyfin cannot emit pass-by audio.
+- Scaled the plane, tail colours and navigation light to 50% width/height around
+  its moving position. Callsign/airline text remains readable; flight timing,
+  path and detection logic are unchanged. Screensaver size and audio are unchanged.
+- All 99 JVM regression tests pass. Public Home and private Home APKs build and
+  pass lint (zero errors). Public packaging excludes the three private inputs;
+  the private build preserves them byte-for-byte and uses the original signing key.
+- Installed version 0.15.3 (code 39) successfully on the TV box. The running bound
+  video service reports `soundEnabled: false`, `aircraftScale: 0.5`, and retained
+  playback/overlay access. The Home role remains Family Shelf and SmartTube video
+  playback stayed in the foreground. No player transport controls were sent.
+- No live plane crossing or native screenshot was observed during this check;
+  service diagnostics confirm the deployed configuration. Hosted release execution
+  is separate from this local/device validation.
+
 ## Creator credit and public APK onboarding — version 0.15.2
 
 - Added © xsoulp 2026 through a non-interactive window overlay on both Activities

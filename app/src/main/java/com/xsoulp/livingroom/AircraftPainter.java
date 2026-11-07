@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 /** Painted manga airliner with native operator tail tinting; shared by both scenes. */
 final class AircraftPainter {
+    static final float VIDEO_SCALE=.5f;
     private static Bitmap sprite;
     private final Paint paint=new Paint(Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
     private final Path tail=new Path(),stripe=new Path();
@@ -26,7 +27,9 @@ final class AircraftPainter {
     }
     void draw(Canvas canvas,BridgeFlightTracker.Event plane,float x,float y,long motion,boolean day,boolean overlay) {
         AirlineStyle airline=AirlineStyle.forCallsign(plane.label);
-        int saved=canvas.save();canvas.translate(x,y);if(plane.heading>=180)canvas.scale(-1,1);
+        float size=overlay?VIDEO_SCALE:1f;
+        int saved=canvas.save();canvas.translate(x,y);canvas.scale(size,size);
+        if(plane.heading>=180)canvas.scale(-1,1);
         paint.setStyle(Paint.Style.FILL);paint.setColor(Color.WHITE);paint.setColorFilter(null);
         if(sprite!=null) {
             canvas.drawBitmap(sprite,null,destination,paint);
@@ -45,6 +48,6 @@ final class AircraftPainter {
         paint.setTypeface(Typeface.create("sans-serif",Typeface.BOLD));paint.setTextAlign(Paint.Align.LEFT);paint.setTextSize(13);
         paint.setColor(day?0xff233a50:0xfff0f4ff);paint.setShadowLayer(3,0,1,overlay?0xff000000:0x88000000);
         String caption=plane.label+(airline.name.isEmpty()?"":" · "+airline.name);
-        canvas.drawText(caption,x-65,y-46,paint);paint.clearShadowLayer();
+        canvas.drawText(caption,x-65*size,y-46*size,paint);paint.clearShadowLayer();
     }
 }

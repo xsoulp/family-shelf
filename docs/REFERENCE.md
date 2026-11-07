@@ -10,7 +10,7 @@ books and app shortcuts share a warm, illustrated home.
 Navigate with a TV remote, browse real Jellyfin library content, resume supported
 Netflix titles and open your media apps from a warm, illustrated room.
 
-**Current version:** 0.15.2 · **Repository name:** `family-shelf`
+**Current version:** 0.15.3 · **Repository name:** `family-shelf`
 
 ## Screenshots
 
@@ -210,8 +210,9 @@ observe foreground app names to stop the overlay when another app opens.
 The transparent aircraft window appears only for detected passes, near the top of
 the screen, and accepts neither focus nor remote/touch input. Pausing playback,
 returning to the launcher, sleeping the screen or disabling the feature removes
-it. Each plane has one quiet aircraft pass-by sound at 12% gain, without requesting audio focus or
-controlling video playback. The Background music switch also mutes this effect.
+it. Aircraft over video are half the screensaver size and completely silent.
+The overlay has no audio player and does not control video playback. Callsign
+and airline text keep their readable size above the smaller plane.
 The private outdoor song plays only in the screensaver. Android or the video app
 may restrict overlays; real playback compatibility must be checked on the device.
 
