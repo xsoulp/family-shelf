@@ -1,0 +1,7 @@
+{
+  "asset": "app/src/main/assets/screensaver-cloud-manga.png",
+  "tool": "built-in image_gen",
+  "prompt": "docs/screensaver-cloud-prompt.txt",
+  "alpha": "Original generated RGBA transparency preserved",
+  "use": "Animated with native Canvas; day/night/overcast tint and live wind/coverage."
+}

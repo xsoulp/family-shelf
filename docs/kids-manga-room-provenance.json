@@ -1,0 +1,54 @@
+{
+  "asset": "app/src/main/assets/library-kids-continuous.png",
+  "tool": "built-in image_gen edit",
+  "prompt": "docs/kids-manga-room-prompt.txt",
+  "sourceSize": [
+    1024,
+    1536
+  ],
+  "sceneSize": [
+    1672,
+    2508
+  ],
+  "shelves": "Six empty compartments preserved; live covers rendered by the app",
+  "paintedBallCentersSource": [
+    [
+      395,
+      1448
+    ],
+    [
+      513,
+      1448
+    ],
+    [
+      630,
+      1448
+    ]
+  ],
+  "hitTargetsScene": {
+    "left": {
+      "app": "Jellyfin",
+      "center": [
+        645,
+        2364
+      ]
+    },
+    "middle": {
+      "app": "Red Descent",
+      "center": [
+        838,
+        2364
+      ]
+    },
+    "right": {
+      "app": "Netflix",
+      "center": [
+        1029,
+        2364
+      ]
+    },
+    "diameter": 124,
+    "focusRadius": 52
+  },
+  "compositing": "Balls, shadows and floor toys are painted into the room. App overlays draw only the selection ring and receive input; no duplicate ball sprites."
+}

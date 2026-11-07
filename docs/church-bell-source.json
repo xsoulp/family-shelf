@@ -1,0 +1,13 @@
+{
+  "name": "Bell 1 O'clock",
+  "author": "Joseph SARDIN & Axeline T.",
+  "source": "https://bigsoundbank.com/bell-1-o-clock-s3446.html",
+  "download": "https://bigsoundbank.com/UPLOAD/mp3/3446.mp3",
+  "license": "CC0 1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "file": "app/src/main/res/raw/church_bell.wav",
+  "sha256": "b289af6dc2314112e708e284b042459e326e7034878dac030cc2f85dc50a1c51",
+  "originalSha256": "29d82355ff8e37830a36fd6593c6e91d0b3206d5bcfa16bfc6a0d351c02f0b19",
+  "processing": "Downloaded real church-bell recording. Full duration retained, converted to mono 22050 Hz PCM16 WAV for SoundPool. No generated audio.",
+  "playback": "17% gain; one original strike per count, spaced 2400 ms apart, with overlapping natural decays."
+}

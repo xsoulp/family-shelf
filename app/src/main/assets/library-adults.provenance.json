@@ -1,0 +1,14 @@
+{
+  "origin": "Public example artwork",
+  "privacy": "Fictional AI-generated people replace private photographs",
+  "tool": "built-in image_gen",
+  "promptReference": "docs/image-prompts.json",
+  "sha256": "0c5bc9b3c14f180c613f28a4c4fc7278c92f0d6a3f42c760e4c4fa5ae5c77ad6",
+  "canvas": [
+    1672,
+    941
+  ],
+  "metadata": "Source and embedded thumbnail metadata removed; pixel stream preserved",
+  "language": "English",
+  "localizationPrompts": "docs/english-image-prompts.json"
+}

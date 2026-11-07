@@ -1,0 +1,12 @@
+{
+  "name": "Airplane, pass #4",
+  "author": "Dj Lio",
+  "source": "https://bigsoundbank.com/airplane-pass-4-s3007.html",
+  "download": "https://bigsoundbank.com/UPLOAD/mp3/3007.mp3",
+  "license": "CC0 1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "file": "app/src/main/res/raw/airplane_whoosh.wav",
+  "sha256": "37c929fbe9dc998319b2b1fc0fdfe1b00a4e048a6bc5cfad4c710467c7f67770",
+  "originalSha256": "2e5b82f452507afb11e2598cb1066027df927b0b5f7b098bb0467cc02d3aeefe",
+  "processing": "Downloaded recording; converted to mono 22050 Hz PCM16 WAV to fit Android SoundPool decoded sample memory. Full duration retained; no synthesized or AI-generated audio. Playback gain remains 16% outdoors and 12% over video."
+}

@@ -1,0 +1,5 @@
+<resources>
+    <string name="creator_credit" translatable="false">© xsoulp 2026</string>
+    <string name="remote_buttons_label">Family Shelf remote buttons</string>
+    <string name="remote_buttons_description">Netflix opens Netflix. Amazon / Prime Video opens Jellyfin. YouTube opens SmartTube. Works across apps and leaves the other remote buttons unchanged. Also observes foreground app names to limit aircraft overlays to Netflix and Jellyfin. Does not read screen contents.</string>
+</resources>

@@ -1,0 +1,89 @@
+name: Public APK
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - uses: android-actions/setup-android@v4
+      - name: Install Android SDK packages
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+      - name: Build and test Home-enabled APK
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/family-shelf-public-assets" dist
+          bash build.sh -PhomeEnabled=true -PpublicDebugSigning=true -PprivateAssetsDir="$RUNNER_TEMP/family-shelf-public-assets"
+          ./gradlew --no-daemon --console=plain testDebugUnitTest -PhomeEnabled=true -PpublicDebugSigning=true -PprivateAssetsDir="$RUNNER_TEMP/family-shelf-public-assets"
+          cp app/build/outputs/apk/debug/app-debug.apk dist/family-shelf-home.apk
+      - name: Build regular APK
+        shell: bash
+        run: |
+          bash build.sh -PhomeEnabled=false -PpublicDebugSigning=true -PprivateAssetsDir="$RUNNER_TEMP/family-shelf-public-assets"
+          cp app/build/outputs/apk/debug/app-debug.apk dist/family-shelf.apk
+      - name: Verify public assets and write checksums
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          forbidden = ('adult-room-photo.jpg', 'outdoor-ambient.mp3', 'outdoor-scene.json')
+          for apk in Path('dist').glob('*.apk'):
+              with ZipFile(apk) as archive:
+                  assert not any(name.endswith(forbidden) for name in archive.namelist()), apk
+          PY
+          cd dist
+          sha256sum family-shelf.apk family-shelf-home.apk > SHA256SUMS
+      - uses: actions/upload-artifact@v7
+        with:
+          name: family-shelf-public-apks
+          path: dist/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 90
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - name: Download verified APKs and publish release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          BUILD_RUN_ID: ${{ github.run_id }}
+        run: |
+          gh run download "$BUILD_RUN_ID" --name family-shelf-public-apks --dir dist
+          cd dist
+          sha256sum --check SHA256SUMS
+          release_notes="Public Android TV builds: choose family-shelf-home.apk to use Family Shelf as your launcher, or family-shelf.apk to keep your current launcher. SHA256SUMS contains download checksums. These builds use example assets and exclude private photos, soundtracks and location settings."
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" family-shelf-home.apk family-shelf.apk SHA256SUMS --clobber
+            gh release edit "$RELEASE_TAG" --title "Family Shelf $RELEASE_TAG" --notes "$release_notes"
+          else
+            gh release create "$RELEASE_TAG" family-shelf-home.apk family-shelf.apk SHA256SUMS --verify-tag --title "Family Shelf $RELEASE_TAG" --notes "$release_notes"
+          fi

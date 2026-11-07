@@ -1,0 +1,61 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_TV_LISTINGS" />
+    <uses-feature android:name="android.software.leanback" android:required="true" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <queries>
+        <package android:name="pt.reddescent.game" />
+        <package android:name="org.smarttube.stable" />
+        <package android:name="org.smarttube.beta" />
+        <package android:name="com.liskovsoft.smarttubetv" />
+        <package android:name="com.liskovsoft.smartyoutubetv2.tv" />
+        <package android:name="com.liskovsoft.smartyoutubetv2.tv.beta" />
+        <package android:name="org.jellyfin.androidtv" />
+        <package android:name="org.jellyfin.mobile" />
+        <package android:name="dev.jdtech.jellyfin" />
+        <package android:name="com.stremio.one" />
+        <package android:name="com.stremio.two" />
+        <package android:name="com.netflix.ninja" />
+        <package android:name="com.netflix.mediaclient" />
+    </queries>
+    <application android:label="Family Shelf" android:icon="@drawable/icon"
+        android:banner="@drawable/banner" android:theme="@style/AppTheme"
+        android:allowBackup="false" android:supportsRtl="true"
+        android:hardwareAccelerated="true" android:usesCleartextTraffic="true">
+        <service android:name=".RemoteButtonService" android:exported="true"
+            android:label="@string/remote_buttons_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data android:name="android.accessibilityservice" android:resource="@xml/remote_buttons" />
+        </service>
+        <service android:name=".NetflixAircraftService" android:exported="true"
+            android:label="Family Shelf · Video aircraft"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter><action android:name="android.service.notification.NotificationListenerService" /></intent-filter>
+        </service>
+        <activity android:name=".JellyfinConnectActivity" android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity android:name=".MainActivity" android:exported="true"
+            android:launchMode="singleTask" android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|navigation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- Optional Home integration; disabled in the normal APK. -->
+        <activity-alias android:name=".Home" android:targetActivity=".MainActivity"
+            android:exported="true" android:enabled="${homeEnabled}" android:label="Family Shelf">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+    </application>
+</manifest>

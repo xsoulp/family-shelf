@@ -1,0 +1,37 @@
+# Local tooling and configuration
+.gradle/
+.gradle-user/
+.android/
+.codex/
+.agents/
+.aws/
+.private/
+**/build/
+local.properties
+*.iml
+.idea/
+.env
+.env.*
+*.keystore
+*.jks
+*.pem
+*.key
+
+# Device exports, signed binaries and personal source photographs
+artifacts/
+*.apk
+*.idsig
+*.log
+*.jpg
+*.jpeg
+/fundo_disneyteca.png
+/hello.txt
+
+# Reviewed publication checkout (separate Git metadata)
+/family-shelf-public/
+
+# Generated public APK packages
+dist/
+
+# Deliberately public CI development key (never a personal signing key)
+!.github/public-debug.keystore

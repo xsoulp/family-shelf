@@ -1,0 +1,9 @@
+{
+  "asset": "app/src/main/assets/aircraft-realistic-manga.png",
+  "tool": "built-in image_gen",
+  "prompt": "docs/aircraft-realistic-manga-prompt.txt",
+  "alpha": "Original generated RGBA preserved",
+  "renderer": "Shared by screensaver and video overlay; runtime LightingColorFilter restricted to registered tail/stripe polygons",
+  "palette": "Existing easyJet, Ryanair, Vueling, TAP and neutral operator colours",
+  "caption": "Callsign and known airline above the aircraft only"
+}

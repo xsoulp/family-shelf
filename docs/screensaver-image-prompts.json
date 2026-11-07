@@ -1,0 +1,26 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    "app/src/main/assets/screensaver-lisbon-day.png",
+    "app/src/main/assets/screensaver-lisbon-night.png"
+  ],
+  "canvas": [
+    1672,
+    941
+  ],
+  "dayPrompt": "Use case: stylized-concept. Asset type: full-screen Android TV screensaver background, landscape 16:9, ideally 1920x1080. Create a beautiful cinematic hand-painted manga/anime background inspired by the view from Castelo de São Jorge in Lisbon: warm terracotta Alfama rooftops, pale Portuguese limestone buildings, winding streets, the blue Tagus river stretching into the distance, a subtle distant red suspension bridge, castle stone rampart at lower left. DAYTIME version, luminous soft sunlight, delicate ink outlines, painterly architectural detail, peaceful atmosphere, no people. Composition requirement for a real-time clock overlay: a prominent elegant Portuguese church bell tower at the RIGHT third, front-facing square upper façade, one large completely BLANK circular ivory clock disk centered approximately 76% across and 44% down the canvas, radius about 4% of canvas height. The disk must have NO hands, NO marks, NO numerals and be unobstructed; the app will draw an actual working clock on it. The tower spire begins below the top 25% of the canvas. Upper 22% of the whole image must be uninterrupted clean blue sky, without architecture, clouds, sun or text, so the app can animate clouds there. Buildings remain below that clear cloud band. Reserve a visually quiet lower-left stone/parapet area for a small temperature overlay, but draw NO UI, text, temperature, badges, letters, signatures or watermark. Detailed landscape artwork only; not a mockup. Stable straight-on camera, no lens distortion. This exact composition will later be relit for night.",
+  "nightPrompt": "Use case: lighting-weather edit. Image 1 is the edit target. Produce the NIGHT version of this exact Lisbon manga/anime landscape. Preserve the EXACT pixel composition, framing, dimensions, ALL silhouettes, building positions, church tower, bridge, rooftops, plants, and especially the blank circular clock face center and radius. Change ONLY time-of-day lighting: deep indigo clear night sky, cool blue moonlit limestone and water, subtle warm amber window and street lights, delicate bridge lights and distant city glow reflected on the Tagus. Beautiful peaceful hand-painted anime night background, readable details, not excessively dark. Sky top 18% stays clean and uncluttered for animated clouds; no painted clouds, no stars, no moon (the app supplies sky animation). Clock disk stays ivory and EMPTY with no hands, no marks, no numerals. Do NOT add UI, lettering, people, aircraft, text or watermark. Match the original landscape's 1672x941 aspect ratio. No changes to geometry or camera.",
+  "clock": {
+    "center": [
+      1375,
+      537
+    ],
+    "radius": 70
+  },
+  "animatedCloudClip": [
+    0,
+    0,
+    1672,
+    174
+  ]
+}

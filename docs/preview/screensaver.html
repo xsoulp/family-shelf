@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Family Shelf — screensaver design preview</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#081730}
+canvas{display:block;width:100%;height:100%;object-fit:contain}
+</style>
+</head>
+<body>
+<canvas width="1672" height="941" aria-label="Illustrative Lisbon screensaver with a manga aircraft. Weather and flight are examples."></canvas>
+<script>
+'use strict';
+const query=new URLSearchParams(location.search),night=query.get('phase')==='night',still=query.has('still');
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),W=1672,H=941;
+const flight=night?'RYR123':'EJU123',airline=night?'Ryanair':'easyJet';
+const tail=night?'#143675':'#ff741c',accent=night?'#ffd339':'#ffd29d';
+const base='../../app/src/main/assets/';
+function image(name){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error(name));im.src=base+name;});}
+function text(value,x,y,size,color='#eef2f5',align='left'){
+ ctx.font=`${size}px sans-serif`;ctx.textAlign=align;ctx.fillStyle=color;
+ ctx.shadowColor='#17212b';ctx.shadowBlur=3;ctx.shadowOffsetY=1;ctx.fillText(value,x,y);ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+}
+function tinted(image,color){
+ const layer=document.createElement('canvas');layer.width=image.width;layer.height=image.height;
+ const c=layer.getContext('2d');c.drawImage(image,0,0);c.globalCompositeOperation='multiply';c.fillStyle=color;c.fillRect(0,0,layer.width,layer.height);
+ c.globalCompositeOperation='destination-in';c.drawImage(image,0,0);return layer;
+}
+function fin(points){ctx.beginPath();ctx.moveTo(-92+points[0]*184,-35+points[1]*61.333);for(let i=2;i<points.length;i+=2)ctx.lineTo(-92+points[i]*184,-35+points[i+1]*61.333);ctx.closePath();}
+function aircraft(sprite,colour,stripe,x,y){
+ ctx.save();ctx.translate(x,y);ctx.drawImage(sprite,-92,-35,184,61.333);
+ ctx.save();fin([.038,.081,.080,.083,.181,.428,.207,.474,.229,.493,.085,.526]);ctx.clip();ctx.drawImage(colour,-92,-35,184,61.333);
+ fin([.059,.385,.175,.302,.215,.420,.090,.520]);ctx.clip();ctx.drawImage(stripe,-92,-35,184,61.333);ctx.restore();ctx.restore();
+ text(`${flight} · ${airline}`,x-65,y-46,13,night?'#f0f4ff':'#233a50');
+}
+function clock(){
+ const x=1375,y=537,r=70,minutes=night?12:8,hours=night?23:15;
+ ctx.fillStyle=night?'#f2dfbc':'#f7efd9';ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#352e28';ctx.font='14px serif';ctx.textAlign='center';
+ for(let i=1;i<=12;i++){const a=(i*30-90)*Math.PI/180;ctx.fillText(i,x+Math.cos(a)*55,y+Math.sin(a)*55+5);}
+ function hand(angle,length,width,color){const a=(angle-90)*Math.PI/180;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(a)*length,y+Math.sin(a)*length);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.lineCap='round';ctx.stroke();}
+ hand((hours%12+minutes/60)*30,35,4.5,'#332d27');hand(minutes*6,49,3,'#332d27');hand(180,52,1.1,'#984c3a');
+ ctx.fillStyle='#352e28';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
+}
+Promise.all([image(`screensaver-lisbon-${night?'night':'day'}.png`),image('screensaver-cloud-manga.png'),image('aircraft-realistic-manga.png')]).then(([scene,cloud,plane])=>{
+ const colour=tinted(plane,tail),stripe=tinted(plane,accent);
+ function render(time){
+  ctx.drawImage(scene,0,0,W,H);
+  ctx.save();ctx.beginPath();ctx.rect(0,0,W,220);ctx.clip();ctx.globalAlpha=night ? .61 : .8;ctx.filter=night?'brightness(.48) saturate(.75)':'none';
+  for(let i=0;i<4;i++){const width=330+(i%3)*92,height=width*cloud.height/cloud.width,x=(i*420+(still?45:time*.003))%(W+width)-width*.35,y=12+(i*29)%62;ctx.drawImage(cloud,x,y,width,height);}
+  ctx.restore();
+  const progress=still ? .52 :(time%18000)/18000;
+  aircraft(plane,colour,stripe,still?850:-100+(W+200)*progress,126);
+  clock();
+  ctx.fillStyle='#142230c9';ctx.beginPath();ctx.roundRect(42,744,468,147,16);ctx.fill();
+  text('LISBON · CASTLE VIEW',62,774,17,'#e4e9dc');text(night?'15 °C':'21 °C',60,833,54,'white');text('Partly cloudy · example',64,867,20);
+  text('PC PREVIEW · EXAMPLE WEATHER & FLIGHT',52,42,16,'white');
+  text('Weather and clock shown for illustration',48,914,14);
+  text('Illustrative flight · not a live detection',620,914,13);
+  text('© xsoulp 2026',W-20,H-12,14,'#eef2f5','right');
+  document.body.dataset.previewReady='true';document.body.dataset.aircraft=flight;document.body.dataset.phase=night?'night':'day';
+  if(!still)requestAnimationFrame(render);
+ }
+ render(0);
+}).catch(error=>{document.body.dataset.previewError=error.message;throw error;});
+</script>
+</body>
+</html>

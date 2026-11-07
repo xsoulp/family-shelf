@@ -1,0 +1,10 @@
+{
+  "tool": "built-in image_gen",
+  "purpose": "Replace private family portraits with fictional AI-generated people for public examples.",
+  "outputs": {
+    "adults": {
+      "prompt": "Use case: precise-object-edit. Public privacy-safe example for Family Shelf Android TV launcher. EDIT TARGET: the attached image. Change ONLY the small framed personal couple photograph on the LEFT wall below the Biblioteca das Crian\u00e7as sign. Completely REMOVE the original real photograph inside that frame and replace it with a realistic AI-generated photo portrait of a completely fictional middle-aged East Asian couple in winter clothes smiling outdoors in a snowy pine forest; distinct fictional faces never based on the reference photo. The old faces, body shapes, clothes and setting MUST NOT be retained or imitated. This must be an obviously different fictional group, not a likeness of any original person. Preserve the existing wooden frame and passe-partout. Keep all other image content as close to identical as possible: camera, full wide composition, Portuguese text, book and shelf positions, all app logos, lighting, furniture. Book fronts are blank UI placeholders: do not add media covers or modify their positions. No extra text, no watermarks. Preserve input dimensions and aspect ratio.",
+      "source": "Private local reference, excluded from publication"
+    }
+  }
+}

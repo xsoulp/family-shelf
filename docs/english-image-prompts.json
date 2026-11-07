@@ -1,0 +1,15 @@
+{
+  "tool": "built-in image_gen",
+  "purpose": "Localize built-in room signs and example interface labels into English; retain external media artwork in its source language.",
+  "prompts": {
+    "adults": {
+      "output": "app/src/main/assets/library-adults.png",
+      "prompt": "Use case: text-localization. Edit target: this exact existing Family Shelf Android TV image. Translate ONLY the specified built-in Portuguese interface text to English. Replace the LEFT wall sign 'Biblioteca das Crian\u00e7as' with exactly 'Kids Library', keeping its left-pointing arrow. Preserve the existing image dimensions, full composition and camera, all blank book front positions, shelf geometry, logos, app names, furnishings, warm lighting and the fictional AI-generated people in the photo frame. For screenshot examples, preserve every media cover and all its original-language titles unchanged: they are external library content, not UI text. Do not change film artwork or fabricate new titles. Keep lettering legible and naturally fitted on its existing sign or badge, with no duplicated or residual Portuguese interface text. Do not redesign the image. No watermark."
+    },
+    "example-disney": {
+      "output": "docs/examples/disneyteca.webp",
+      "prompt": "Use case: text-localization. Edit target: this exact existing Family Shelf Android TV image. Translate ONLY the specified built-in Portuguese interface text to English. Change upper shelf UI badge to exactly 'DISNEY LIBRARY  \u00b7  12 MOVIES'. Change lower shelf UI badge to exactly 'DISNEY LIBRARY  \u00b7  KEEP EXPLORING'. Change bottom help to exactly '\u25c0 \u25b6  Books / next room  \u00b7  \u2191 \u2193  Shelves / options  \u00b7  OK  Open'. Preserve the existing image dimensions, full composition and camera, all blank book front positions, shelf geometry, logos, app names, furnishings, warm lighting and the fictional AI-generated people in the photo frame. For screenshot examples, preserve every media cover and all its original-language titles unchanged: they are external library content, not UI text. Do not change film artwork or fabricate new titles. Keep lettering legible and naturally fitted on its existing sign or badge, with no duplicated or residual Portuguese interface text. Do not redesign the image. No watermark.",
+      "encoding": "Original reviewed PNG converted to WebP for browser preview use"
+    }
+  }
+}

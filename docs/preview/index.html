@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Family Shelf — continuous kids bookcase preview</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#17100d;color:#fff5db;font-family:Arial,sans-serif}button{font:inherit;cursor:pointer;color:inherit}button:focus-visible{outline:3px solid #a2e3ff;outline-offset:4px}#frame{position:absolute;overflow:hidden;background:#22170e;outline:none}#world{position:absolute;left:0;top:0;width:1672px;height:2508px;transform-origin:0 0;will-change:transform;transition:transform .52s cubic-bezier(.2,.75,.25,1)}#room{position:absolute;width:1672px;height:2508px;pointer-events:none}#hud{position:absolute;left:0;top:0;width:1672px;height:941px;transform-origin:0 0;pointer-events:none;background:linear-gradient(#120e0ccc,transparent 150px,transparent 760px,#120e0ce6)}#hud button{pointer-events:auto}.brand{position:absolute;left:42px;top:30px;font-size:14px;letter-spacing:3px;color:#f4d18b;font-weight:bold}#section-title{position:absolute;left:40px;top:59px;margin:0;font-size:32px;font-weight:500;letter-spacing:-.7px}.subtitle{position:absolute;left:42px;top:100px;color:#ded3bd;font-size:15px}.preview{position:absolute;left:694px;top:32px;font-size:12px;letter-spacing:1.6px;border:1px solid #f2d28b55;border-radius:30px;padding:8px 15px;background:#241b1688;color:#f6d894}.utility{position:absolute;right:38px;top:35px;display:flex;gap:12px}.utility button{padding:11px 17px;border-radius:25px;border:1px solid #f6d7a44d;background:#221e1da6;font-size:14px;letter-spacing:.5px}.rail{position:absolute;left:35px;top:310px;display:grid;gap:16px;pointer-events:auto}.rail button{display:flex;gap:12px;align-items:center;border:0;background:#16151099;padding:10px 13px;border-radius:10px;text-align:left;font-size:15px;color:#bcb5a4;transition:color .3s,background .3s}.rail .dot{width:6px;height:6px;border-radius:100%;background:#a29a87}.rail button.active{background:#142128d9;color:#d6f2ff}.rail button.active .dot{background:#9ee6ff;box-shadow:0 0 10px #9ee6ff}.rail small{display:block;font-size:11px;margin-top:4px;letter-spacing:1px;color:#b9ab93}.shelf{position:absolute;left:294px;width:1084px;height:246px}.shelf-label{position:absolute;left:8px;top:0;font-size:17px;font-weight:bold;letter-spacing:2px;color:#fce3b8;text-shadow:0 2px 5px #000}.shelf-label span{font-size:12px;font-weight:400;letter-spacing:.6px;color:#e5cc9e;margin-left:14px}.books{display:flex;position:absolute;bottom:0;width:100%;height:214px;justify-content:space-around;align-items:flex-end}.book{position:relative;display:block;width:148px;height:214px;border:0;border-radius:4px 7px 3px 3px;overflow:visible;padding:0;flex-shrink:0;background:#493828;box-shadow:-7px 2px 0 #4c3424,-9px 4px 6px #0008,8px 8px 10px #0009;transition:transform .24s,box-shadow .24s;transform-origin:50% 100%}.book::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:2;box-shadow:inset 5px 0 6px #fff3,inset -2px 0 3px #0008;pointer-events:none}.book.selected{transform:translateY(-3px) scale(1.02);box-shadow:0 0 0 3px #a7e8ff,0 0 21px #6cd9ff55,-7px 3px 0 #4c3424,10px 15px 20px #000b;z-index:3}.book.selected::after{content:"";position:absolute;bottom:-20px;left:calc(50% - 4px);width:8px;height:8px;border-radius:50%;background:#a7e8ff;box-shadow:0 0 12px #a7e8ff}.poster{display:block;width:100%;height:100%;overflow:hidden;position:relative;border-radius:inherit;background:#355468}.poster img{position:absolute;max-width:none;pointer-events:none}.illustrated{display:flex;align-items:center;justify-content:center;text-align:center;padding:15px 12px;flex-direction:column;background:radial-gradient(ellipse at 50% 20%,var(--light),transparent 57%),linear-gradient(145deg,var(--bg),#101a2b);color:#fff4ce}.illustrated .symbol{font-size:67px;line-height:1.2;margin-bottom:15px;filter:drop-shadow(0 4px 6px #0005)}.illustrated b{font-family:Georgia,serif;font-size:23px;line-height:1.1}.illustrated .author{margin-top:13px;font-size:9px;letter-spacing:2px;color:#f4e5bfcc}.illustrated:after{content:"";position:absolute;inset:8px;border:1px solid #fff4;border-radius:2px;pointer-events:none}.progress{position:absolute;bottom:8px;left:8px;right:8px;height:4px;background:#28221caa;z-index:2}.progress i{display:block;height:100%;background:#efc87d}.footer{position:absolute;left:260px;bottom:18px;right:260px;text-align:center;color:#dfd5c1;font-size:16px;letter-spacing:.2px}#selected-title{position:absolute;top:92px;right:42px;max-width:470px;text-align:right;font-size:22px;font-weight:500;text-shadow:0 3px 10px #000}#source{position:absolute;top:121px;right:42px;max-width:470px;text-align:right;font-size:12px;letter-spacing:1px;color:#e6c994}#position{position:absolute;right:44px;top:392px;font-size:13px;color:#e9d1a2;letter-spacing:2px}.arrows{position:absolute;right:42px;top:440px;display:grid;gap:12px}.arrows button{background:#201811b5;border:1px solid #f4d49b55;border-radius:50%;height:40px;width:40px;font-size:20px}#toast{position:absolute;left:430px;right:430px;top:730px;padding:16px;border-radius:10px;text-align:center;background:#1c2a30ee;opacity:0;transition:opacity .2s;font-size:17px;color:#dcf5ff}.flash{opacity:1!important}@media(prefers-reduced-motion:reduce){#world,.book{transition:none}}
+#adult-room{display:none;position:absolute;inset:0;background:url('../examples/adult-room.webp') center/100% 100% no-repeat;pointer-events:none}#frame.adults #adult-room{display:block}#frame.adults #world,#frame.adults .rail,#frame.adults .arrows,#frame.adults #position{visibility:hidden}
+
+#floor-apps{position:absolute;top:2277px;left:0;width:1672px;height:156px}.toy{position:absolute;top:0;display:flex;align-items:flex-start;justify-content:center;width:156px;height:156px;padding:0;border:0;background:transparent;pointer-events:auto;transition:transform .2s}.toy:before{content:"";position:absolute;width:132px;height:22px;top:112px;border-radius:50%;background:#10080288;filter:blur(5px)}.toy .surface{position:relative;display:grid;place-items:center;overflow:hidden;width:122px;height:122px;border-radius:50%;background:radial-gradient(circle at 30% 25%,var(--shine),var(--ball) 65%,#47551d 100%);box-shadow:inset -8px -10px 18px #0004,3px 8px 9px #0005}.toy .surface:before,.toy .surface:after{content:"";position:absolute;top:-12px;width:92px;height:146px;border:4px solid #f1edcb;border-radius:50%}.toy .surface:before{left:-62px}.toy .surface:after{right:-62px}.toy .name{position:relative;z-index:1;max-width:105px;color:#263719;font:bold italic 20px 'Arial Narrow',Arial,sans-serif;letter-spacing:-.8px}.toy:nth-child(2) .name{font-size:16px}.toy.selected .surface{outline:3px solid #a4e5ff;outline-offset:4px;box-shadow:0 0 21px #82dfff66,inset -8px -10px 18px #0004}.toy.selected{transform:translateY(-4px)}#adult-focus{display:none;position:absolute;z-index:1;border:3px solid #a7e8ff;border-radius:5px;box-shadow:0 0 18px #88dfff66;pointer-events:none}#frame.adults #adult-focus{display:block}
+
+.creator-credit{position:absolute;right:20px;bottom:12px;color:#eef2f5dd;font-size:14px;text-shadow:0 1px 3px #17212b;pointer-events:none;z-index:20}
+
+#frame.capture #world .shelf-label,#frame.capture .brand,#frame.capture #section-title,#frame.capture .subtitle,#frame.capture .utility,#frame.capture .rail,#frame.capture .arrows,#frame.capture #position,#frame.capture #selected-title,#frame.capture #source,#frame.capture .footer{display:none}
+#frame.capture #hud{background:none}#frame.capture #world .book:not(.selected){transform:perspective(500px) rotateY(-18deg) skewY(1deg)}
+#frame.capture #world .book.selected{opacity:0}#frame.capture #floor-apps{visibility:hidden}
+#foreground-cover{position:absolute;z-index:8;transform-origin:top left;cursor:pointer}
+#foreground-cover .book{margin:0;transform:none;box-shadow:0 0 0 3px #a7e8ff,9px 12px 12px #0005}
+#foreground-cover[hidden]{display:none}
+</style>
+</head>
+<body>
+<div id="frame" tabindex="0" aria-label="Interactive kids bookcase preview. Use arrow keys to navigate.">
+ <div id="world"><img id="room" src="../../app/src/main/assets/library-kids-continuous.png" alt="One continuous six-shelf wooden bookcase in a cozy room"></div>
+ <div id="adult-focus"></div>
+ <div id="adult-room" role="img" aria-label="Example of the Adults library"></div>
+ <div id="hud">
+  <div class="brand">FAMILY SHELF</div><h1 id="section-title">Kids library</h1><div class="subtitle">One room. All their stories.</div>
+  <div class="preview">INTERACTIVE PREVIEW · EXAMPLE TITLES</div>
+  <div class="utility"><button id="adults">Adults →</button><button id="music" aria-pressed="false">♫ Music off</button><button id="options">Options</button></div>
+  <nav class="rail" aria-label="Bookcase sections"><button data-row="0"><span class="dot"></span><span>Books & Stories<small>UPPER SHELVES</small></span></button><button data-row="2"><span class="dot"></span><span>Kids media<small>MIDDLE SHELVES</small></span></button><button data-row="4"><span class="dot"></span><span>Disney<small>LOWER SHELVES</small></span></button></nav>
+  <div id="position"></div><div class="arrows"><button id="up" aria-label="Shelf above">↑</button><button id="down" aria-label="Shelf below">↓</button></div>
+  <div id="selected-title" aria-live="polite"></div><div id="source"></div>
+  <div class="creator-credit">© xsoulp 2026</div>
+  <div class="footer">↑ ↓ &nbsp; Move between shelves &nbsp; · &nbsp; ← → &nbsp; Select &nbsp; · &nbsp; OK &nbsp; Open</div>
+  <div id="toast" role="status"></div>
+ </div>
+</div>
+<script>
+'use strict';
+const W=1672,H=941,WORLD_H=2508;
+const themes=[['#194b5b','#69a5a0'],['#493c70','#d18dd2'],['#9a6b26','#f8c572'],['#26537e','#79bdcc']];
+const story=(title,symbol,index)=>({title,symbol,theme:themes[index%4],source:'Jellyfin · Example book'});
+const disneyNames=['The Little Mermaid','Sleeping Beauty','Beauty and the Beast','Brave','The Princess and the Frog','Mulan','Snow White and the Seven Dwarfs','Cinderella','Aladdin','Moana','Pocahontas','Tangled'];
+const disney=i=>({title:disneyNames[i],crop:[215+(i%6)*206,(i<6?151:512),181,278],source:'Jellyfin · Example movie'});
+const rows=[
+ {label:'BOOKS & STORIES',detail:'Books to discover',section:0,bottom:619,items:[story('The Moon Garden','☾',0),story('The Little Explorer','✦',1),story('Ocean Wonders','🐋',2),story('Bedtime Adventures','🌙',3)]},
+ {label:'MORE STORIES',detail:'Keep exploring',section:0,bottom:927,items:[story('A Forest of Friends','🌳',1),story('The Star Collector','✧',2),story('Under the Sea','🐠',0),story('The Sleepy Fox','🦊',3)]},
+ {label:'CONTINUE WATCHING',detail:'Kids movies & series',section:1,bottom:1236,items:[{...disney(9),progress:.38},{...disney(3),progress:.62},{...story('Island Friends','🏝',0),source:'Jellyfin · Example series',progress:.25},{...story('Little Adventures','🚀',1),source:'Netflix · Example series',progress:.51}]},
+ {label:'RECENTLY ADDED',detail:'Kids movies & series',section:1,bottom:1548,items:[disney(5),disney(11),{...story('Woodland Days','🍃',2),source:'Jellyfin · Example series'},{...story('Space Explorers','🪐',3),source:'Jellyfin · Example series'}]},
+ {label:'DISNEY',detail:'Animated favourites',section:2,bottom:1858,items:[0,1,2,3,4,5].map(disney)},
+ {label:'MORE DISNEY',detail:'Keep exploring',section:2,bottom:2165,items:[6,7,8,9,10,11].map(disney)}
+];
+const frame=document.querySelector('#frame'),world=document.querySelector('#world'),hud=document.querySelector('#hud');
+const query=new URLSearchParams(location.search);
+if(query.has('still')) world.style.transition='none';
+frame.classList.toggle('capture',query.has('capture'));
+const foregroundCover=document.createElement('div');foregroundCover.id='foreground-cover';foregroundCover.hidden=true;frame.append(foregroundCover);foregroundCover.onclick=()=>openItem();
+let adultsRoom=false,musicEnabled=false,floorFocused=false,appCol=0,adultRow=0,adultCol=0;
+const music=new Audio();music.loop=true;music.volume=.13;
+function syncMusic(){
+ if(!musicEnabled||document.hidden){music.pause();return;}
+ const next=adultsRoom?'../../app/src/main/res/raw/adults_ambient.mp3':'../../app/src/main/res/raw/kids_ambient.mp3';
+ if(music.dataset.track!==next){music.src=next;music.dataset.track=next;}
+ music.play().catch(()=>{musicEnabled=false;music.pause();updateMusicButton();});
+}
+function updateMusicButton(){const b=document.querySelector('#music');b.textContent=musicEnabled?'♫ Music on':'♫ Music off';b.setAttribute('aria-pressed',String(musicEnabled));}
+let row=Math.min(5,Math.max(0,Number(query.get('row'))||0)),col=Math.min(rows[Math.min(5,Math.max(0,Number(query.get('row'))||0))].items.length-1,Math.max(0,Number(query.get('col'))||0)),camera=0,scale=1,wheelAt=0,toastTimer;
+const buttons=[];
+for(let r=0;r<rows.length;r++){
+ const data=rows[r],shelf=document.createElement('section');shelf.className='shelf';shelf.style.top=(data.bottom-246)+'px';shelf.setAttribute('aria-label',data.label);
+ const label=document.createElement('div');label.className='shelf-label';label.textContent=data.label;const detail=document.createElement('span');detail.textContent=data.detail;label.append(detail);shelf.append(label);
+ const books=document.createElement('div');books.className='books';buttons[r]=[];
+ for(let c=0;c<data.items.length;c++){
+  const item=data.items[c],b=document.createElement('button');b.className='book';b.tabIndex=-1;b.setAttribute('aria-label',item.title);b.style.width=(data.items.length===6?146:158)+'px';
+  const poster=document.createElement('span');poster.className='poster';
+  if(item.crop){
+   const[x,y,w,h]=item.crop,width=data.items.length===6?146:158;const factor=Math.max(214/h,width/w);const image=document.createElement('img');image.src='../examples/disneyteca.webp';image.alt='';image.style.cssText=`width:${1672*factor}px;height:${941*factor}px;left:${-x*factor+(width-w*factor)/2}px;top:${-y*factor+(214-h*factor)/2}px;`;poster.append(image);
+  }else{
+   poster.classList.add('illustrated');poster.style.setProperty('--bg',item.theme[0]);poster.style.setProperty('--light',item.theme[1]);
+   const symbol=document.createElement('span');symbol.className='symbol';symbol.textContent=item.symbol;const title=document.createElement('b');title.textContent=item.title;const author=document.createElement('span');author.className='author';author.textContent='EXAMPLE COVER';poster.append(symbol,title,author);
+  }
+  b.append(poster);
+  if(item.progress){const progress=document.createElement('span');progress.className='progress';const bar=document.createElement('i');bar.style.width=(item.progress*100)+'%';progress.append(bar);b.append(progress);}
+  b.onclick=()=>{if(row===r&&col===c)openItem();else{row=r;col=c;floorFocused=false;render();}frame.focus();};
+  books.append(b);buttons[r].push(b);
+ }
+ shelf.append(books);world.append(shelf);
+}
+const appNames=['Jellyfin','Red Descent','Netflix'];
+const floor=document.createElement('div');floor.id='floor-apps';world.append(floor);
+const appButtons=[];
+for(let i=0;i<3;i++){
+ const toy=document.createElement('button');toy.className='toy';toy.style.left=([650,836,1022][i]-78)+'px';toy.setAttribute('aria-label','Open '+appNames[i]);
+ toy.style.setProperty('--shine',['#e5ef85','#e9e17a','#d9e976'][i]);toy.style.setProperty('--ball',['#9cb63e','#ada336','#8ca636'][i]);
+ toy.innerHTML='<span class="surface"><span class="name">'+appNames[i]+'</span></span>';
+ toy.onclick=()=>{if(floorFocused&&appCol===i)openItem();else{floorFocused=true;appCol=i;render();}frame.focus();};floor.append(toy);appButtons.push(toy);
+}
+function toggleRoom(direction=1,fromEdge=false){
+ if(!adultsRoom){adultRow=row%2;adultCol=fromEdge?(direction>0?0:3):0;adultsRoom=true;}
+ else{adultsRoom=false;if(fromEdge){row=Math.floor(row/2)*2+adultRow;col=direction>0?0:rows[row].items.length-1;}}
+ frame.classList.toggle('adults',adultsRoom);document.querySelector('#adults').textContent=adultsRoom?'← Kids':'Adults →';
+ document.querySelector('#section-title').textContent=adultsRoom?'Adults library':'Kids library';
+ document.querySelector('.subtitle').textContent=adultsRoom?'Darkest Child · Kevin MacLeod.':'One room. All their stories.';
+ render();syncMusic();
+}
+function resize(){
+ scale=Math.min(innerWidth/W,innerHeight/H);frame.style.cssText=`width:${W*scale}px;height:${H*scale}px;left:${(innerWidth-W*scale)/2}px;top:${(innerHeight-H*scale)/2}px;`;
+ hud.style.transform=`scale(${scale})`;render();
+}
+function render(){
+ camera=floorFocused?WORLD_H-H:Math.max(0,Math.min(WORLD_H-H,rows[row].bottom-214/2-450));
+ world.style.transform=`translateY(${-camera*scale}px) scale(${scale})`;
+ for(let r=0;r<buttons.length;r++)for(let c=0;c<buttons[r].length;c++){
+  buttons[r][c].classList.toggle('selected',!floorFocused&&r===row&&c===col);buttons[r][c].setAttribute('aria-current',!floorFocused&&r===row&&c===col?'true':'false');
+ }
+ document.querySelectorAll('.rail button').forEach(b=>b.classList.toggle('active',rows[+b.dataset.row].section===rows[row].section));
+ document.querySelector('#selected-title').textContent=adultsRoom?'Adults library':floorFocused?appNames[appCol]:rows[row].items[col].title;
+ document.querySelector('#source').textContent=adultsRoom?'Example room · Downloaded music, CC BY 4.0':floorFocused?'Floor app toys · OK to open':rows[row].items[col].source;
+ document.querySelector('#position').textContent=floorFocused?'APPS':`${row+1} / ${rows.length}`;
+ appButtons.forEach((b,i)=>b.classList.toggle('selected',floorFocused&&i===appCol));
+ const af=document.querySelector('#adult-focus');af.style.cssText=`left:${(adultCol*187+625)*scale}px;top:${(adultRow===0?110:377)*scale}px;width:${152*scale}px;height:${(adultRow===0?204:203)*scale}px;`;
+ foregroundCover.hidden=!query.has('capture')||adultsRoom||floorFocused;
+ if(!foregroundCover.hidden){
+  const selected=buttons[row][col],width=rows[row].items.length===6?146:158,lift=420/214*scale;
+  const clone=selected.cloneNode(true);clone.classList.remove('selected');clone.removeAttribute('aria-current');
+  const item=rows[row].items[col];
+  if(item.crop){
+   const [x,y,w,h]=item.crop,factor=Math.max(214/h,width/w),poster=clone.querySelector('.poster');
+   poster.replaceChildren();poster.style.backgroundImage="url('../examples/disneyteca.webp')";
+   poster.style.backgroundSize=`${1672*factor}px ${941*factor}px`;
+   poster.style.backgroundPosition=`${-x*factor+(width-w*factor)/2}px ${-y*factor+(214-h*factor)/2}px`;
+   poster.style.backgroundRepeat='no-repeat';
+  }
+  foregroundCover.replaceChildren(clone);
+  foregroundCover.style.cssText=`left:${(W*scale-width*lift)/2}px;top:${(H*scale-214*lift)/2}px;width:${width}px;height:214px;transform:scale(${lift});`;
+  foregroundCover.setAttribute('aria-label',`Selected movie or book: ${rows[row].items[col].title}`);
+ }
+ frame.dataset.row=row;frame.dataset.col=col;frame.dataset.camera=camera;
+}
+function moveVertical(step){
+ if(adultsRoom){adultRow=Math.max(0,Math.min(1,adultRow+step));render();return;}
+ if(floorFocused){if(step<0){floorFocused=false;render();}return;}
+ const next=Math.max(0,Math.min(rows.length-1,row+step));
+ if(next===row){if(step>0){floorFocused=true;appCol=0;render();}return;}
+ col=Math.round((col/(rows[row].items.length-1))*(rows[next].items.length-1));row=next;render();
+}
+function moveHorizontal(step){
+ if(adultsRoom){const next=adultCol+step;if(next<0||next>3)toggleRoom(step,true);else{adultCol=next;render();}return;}
+ if(floorFocused){const next=appCol+step;if(next<0||next>2){toggleRoom(step,true);}else{appCol=next;render();}return;}
+ const next=col+step;if(next<0||next>=rows[row].items.length){toggleRoom(step,true);}else{col=next;render();}
+}
+function say(message){const toast=document.querySelector('#toast');toast.textContent=message;toast.classList.add('flash');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('flash'),2400);}
+function openItem(){say('Preview: '+(floorFocused?appNames[appCol]:rows[row].items[col].title));}
+addEventListener('keydown',e=>{
+ if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter','Escape'].includes(e.key))e.preventDefault();
+ if(e.key==='ArrowUp')moveVertical(-1);if(e.key==='ArrowDown')moveVertical(1);if(e.key==='ArrowLeft')moveHorizontal(-1);if(e.key==='ArrowRight')moveHorizontal(1);if(e.key==='Enter')openItem();if(e.key==='Escape'&&!adultsRoom){floorFocused=!floorFocused;render();}
+});
+frame.addEventListener('wheel',e=>{e.preventDefault();if(Date.now()-wheelAt>330){moveVertical(e.deltaY>0?1:-1);wheelAt=Date.now();}},{passive:false});
+let touchStart;frame.addEventListener('touchstart',e=>touchStart=e.touches[0].clientY,{passive:true});frame.addEventListener('touchend',e=>{const delta=e.changedTouches[0].clientY-touchStart;if(Math.abs(delta)>45)moveVertical(delta<0?1:-1);},{passive:true});
+document.querySelectorAll('.rail button').forEach(b=>b.onclick=()=>{const next=+b.dataset.row;col=Math.round(col/(rows[row].items.length-1)*(rows[next].items.length-1));row=next;floorFocused=false;render();frame.focus();});
+document.querySelector('#up').onclick=()=>moveVertical(-1);document.querySelector('#down').onclick=()=>moveVertical(1);
+document.querySelector('#adults').onclick=()=>toggleRoom();
+ document.querySelector('#music').onclick=()=>{musicEnabled=!musicEnabled;updateMusicButton();syncMusic();};
+ document.addEventListener('visibilitychange',syncMusic);
+ window.addEventListener('pagehide',()=>music.pause());document.querySelector('#options').onclick=()=>say('Music Box Theme / Darkest Child — Kevin MacLeod (incompetech.com), CC BY 4.0: creativecommons.org/licenses/by/4.0/');
+addEventListener('resize',resize);resize();frame.focus();
+if(query.has('floor')){row=5;floorFocused=true;appCol=query.get('app')==='netflix'?2:0;render();}
+if(query.has('selftest')){
+ let count=0;const assert=(v,label)=>{if(!v)throw Error(label);count++;};
+ const reset=(r,c)=>{adultsRoom=false;floorFocused=false;row=r;col=c;frame.classList.remove('adults');render();};
+ for(let r=0;r<6;r++)for(const step of[-1,1]){
+  const edge=step<0?0:rows[r].items.length-1;reset(r,edge);
+  moveHorizontal(step);assert(adultsRoom,'Every kids row crosses into adults in either direction');assert(adultRow===r%2,'Adult row matches upper/lower shelf');
+  moveHorizontal(-step);assert(!adultsRoom&&row===r&&col===edge,'Reverse returns to the same Kids boundary');
+ }
+ reset(3,3);moveVertical(1);assert(row===4&&col===5,'Four-to-six column transition');moveVertical(-1);assert(row===3&&col===3,'Six-to-four return');
+ reset(0,0);moveVertical(-1);assert(row===0&&!adultsRoom,'Top stays in room');
+ reset(5,5);moveVertical(1);assert(floorFocused,'Down after last shelf enters floor apps');assert(camera===WORLD_H-H,'Camera reveals actual room floor');
+ moveHorizontal(1);assert(appCol===1,'Move across floor toys');moveHorizontal(1);assert(appCol===2,'Netflix floor ball reachable');moveHorizontal(1);assert(adultsRoom,'Right edge of floor apps enters Adults');
+ moveHorizontal(-1);assert(!adultsRoom&&floorFocused,'App edge round trip returns to Kids floor');moveVertical(-1);assert(!floorFocused&&row===5,'Up returns from floor to last shelf');
+ for(let r=0;r<6;r++){
+  reset(r,0);assert(camera>=0&&camera<=WORLD_H-H,'Camera bounds');
+  if(query.has('still')){const box=buttons[r][0].getBoundingClientRect(),viewport=frame.getBoundingClientRect();assert(box.top>viewport.top+180*scale&&box.bottom<viewport.top+760*scale,'Rendered cover is inside camera viewport');}
+ }
+ reset(5,0);moveVertical(1);
+ if(query.has('still'))for(const b of appButtons){const box=b.getBoundingClientRect(),viewport=frame.getBoundingClientRect();assert(box.top>viewport.top+650*scale&&box.bottom<viewport.top+910*scale,'App toy is on the visible floor');}
+ appCol=0;moveHorizontal(-1);assert(adultsRoom,'Left edge of floor apps enters Adults');moveHorizontal(1);assert(!adultsRoom&&floorFocused&&appCol===0,'Left app-edge crossing reverses to Jellyfin');
+ for(let i=0;i<3;i++){assert(appButtons[i].querySelectorAll('svg,img').length===0,'App ball has no icon');assert(appButtons[i].querySelector('.surface .name').textContent===appNames[i],'App name is printed on the ball');}
+ assert(appButtons[0].getAttribute('aria-label')==='Open Jellyfin','Jellyfin toy label');assert(appButtons[2].getAttribute('aria-label')==='Open Netflix','Netflix toy label');
+ reset(0,0);dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowDown'}));assert(row===1,'Keyboard vertical move');dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight'}));assert(col===1,'Keyboard cover selection');
+ let played=0,paused=0;const originalPlay=music.play.bind(music),originalPause=music.pause.bind(music);music.play=()=>{played++;return Promise.resolve();};music.pause=()=>{paused++;};
+ document.querySelector('#music').click();assert(musicEnabled&&played===1,'Music enable');assert(music.dataset.track==='../../app/src/main/res/raw/kids_ambient.mp3','Kids track');
+ document.querySelector('#adults').click();assert(adultsRoom&&music.dataset.track==='../../app/src/main/res/raw/adults_ambient.mp3','Room switch changes soundtrack');
+ document.querySelector('#music').click();assert(!musicEnabled&&paused>0,'Music pause');document.querySelector('#adults').click();assert(!adultsRoom,'Return from Adults');music.play=originalPlay;music.pause=originalPause;
+ document.body.dataset.tests=`PASS ${count} preview checks`;document.title=`PASS ${count} preview checks — Family Shelf`;
+ row=Math.min(5,Math.max(0,Number(query.get('row'))||0));col=0;floorFocused=query.has('floor');if(floorFocused)row=5;render();
+}
+</script>
+</body>
+</html>

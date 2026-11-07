@@ -1,0 +1,50 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.xsoulp.livingroom'
+    compileSdk 36
+    buildToolsVersion '36.0.0'
+    defaultConfig {
+        applicationId 'com.xsoulp.livingroom'
+        minSdk 23
+        targetSdk 36
+        versionCode 38
+        versionName '0.15.2'
+        testInstrumentationRunner 'com.xsoulp.livingroom.RoomSmokeInstrumentation'
+        manifestPlaceholders = [homeEnabled: (project.findProperty('homeEnabled') ?: 'false').toString()]
+    }
+    // Public CI debug builds share an intentionally public development key.
+    // Personal builds keep the normal local signing configuration.
+    signingConfigs {
+        publicDebug {
+            storeFile rootProject.file('.github/public-debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+    buildTypes {
+        debug {
+            if (project.hasProperty('publicDebugSigning')) signingConfig signingConfigs.publicDebug
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+// Local JVM regression tests use real JSON parsing and a loopback HTTP server.
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.json:json:20240303'
+}
+
+// Optional private photo assets stay outside the tracked source tree.
+def personalAssets = project.findProperty('privateAssetsDir')
+def personalAssetsDirectory = personalAssets == null ? rootProject.file('.private/room-assets') : file(personalAssets)
+if (personalAssetsDirectory.isDirectory()) {
+    android.sourceSets.main.assets.srcDir(personalAssetsDirectory)
+}
