@@ -48,6 +48,10 @@ final class AircraftPainter {
         paint.setTypeface(Typeface.create("sans-serif",Typeface.BOLD));paint.setTextAlign(Paint.Align.LEFT);paint.setTextSize(13);
         paint.setColor(day?0xff233a50:0xfff0f4ff);paint.setShadowLayer(3,0,1,overlay?0xff000000:0x88000000);
         String caption=plane.label+(airline.name.isEmpty()?"":" · "+airline.name);
-        canvas.drawText(caption,x-65*size,y-46*size,paint);paint.clearShadowLayer();
+        // Keep the caption readable and trailing behind the tail in either direction.
+        boolean leftbound=plane.heading>=180;
+        paint.setTextAlign(leftbound?Paint.Align.LEFT:Paint.Align.RIGHT);
+        float captionX=x+(leftbound?1:-1)*(92*size+8);
+        canvas.drawText(caption,captionX,y-4*size,paint);paint.clearShadowLayer();
     }
 }

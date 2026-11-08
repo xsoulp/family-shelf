@@ -10,7 +10,7 @@ books and app shortcuts share a warm, illustrated home.
 Navigate with a TV remote, browse real Jellyfin library content, resume supported
 Netflix titles and open your media apps from a warm, illustrated room.
 
-**Current version:** 0.15.3 · **Repository name:** `family-shelf`
+**Current version:** 0.15.4 · **Repository name:** `family-shelf`
 
 ## Screenshots
 
@@ -207,12 +207,12 @@ observation through MediaSession. Family Shelf ignores notification contents and
 reads no screen contents. The existing remote-button accessibility service can
 observe foreground app names to stop the overlay when another app opens.
 
-The transparent aircraft window appears only for detected passes, near the top of
-the screen, and accepts neither focus nor remote/touch input. Pausing playback,
+The transparent aircraft window appears only for detected passes, along the upper
+edge of the screen, and accepts neither focus nor remote/touch input. Pausing playback,
 returning to the launcher, sleeping the screen or disabling the feature removes
 it. Aircraft over video are half the screensaver size and completely silent.
 The overlay has no audio player and does not control video playback. Callsign
-and airline text keep their readable size above the smaller plane.
+and airline text keep their readable size behind the tail.
 The private outdoor song plays only in the screensaver. Android or the video app
 may restrict overlays; real playback compatibility must be checked on the device.
 
@@ -236,7 +236,7 @@ grey/yellow and TAP green/red. Unknown operators retain a neutral tail. These ar
 stylised colour cues rather than exact airframe liveries. The transparent sprite
 is generated artwork; its [prompt and tail-colour registration](aircraft-realistic-manga-provenance.json)
 are saved. Aircraft labels show only
-the callsign and known airline above the plane, with no lower caption. Video-overlay
+the callsign and known airline behind the tail, with no lower caption. Video-overlay
 flight-data credits are available under **Options → Video aircraft overlay → About
 video aircraft**; the screensaver retains its existing footer credits. Flight detection,
 freshness checks and duplicate suppression remain unchanged.

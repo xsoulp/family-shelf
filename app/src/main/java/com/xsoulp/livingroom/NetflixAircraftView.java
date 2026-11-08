@@ -35,7 +35,7 @@ final class NetflixAircraftView extends View {
         }
         if(plane==null) {if(!finished){finished=true;post(done);}return;}
         float progress=(motion-started)/18000f;
-        float x=-70+(1672+140)*progress,y=120+(float)Math.sin(progress*Math.PI)*12;
+        float x=-70+(1672+140)*progress,y=30+(float)Math.sin(progress*Math.PI)*3;
         if(plane.heading>=180)x=1672-x;
         canvas.save();canvas.scale(getWidth()/1672f,getWidth()/1672f);
         painter.draw(canvas,plane,x,y,motion,false,true);canvas.restore();

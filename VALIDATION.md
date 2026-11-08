@@ -6,6 +6,19 @@ for earlier design notes. Historical entries retain technical identifiers and
 observed media names from their original checks. Older device results do not
 establish that a later version was installed or tested on TV.
 
+## Upper-edge video aircraft and trailing labels — version 0.15.4
+
+- Video aircraft center follows scene y=30–33 instead of y=120–132. At the
+  existing 50% size the sprite stays at least 12.5 scene units below the top edge.
+- Callsign/airline captions trail the tail with an 8-unit gap, right-aligned for
+  rightbound aircraft and left-aligned for leftbound aircraft. Text is not mirrored
+  or reduced. Shared painter applies trailing captions to the screensaver too.
+- Build and Android lint pass. Geometry checks cover path endpoints/midpoint and
+  both caption directions. Private inputs are preserved byte-for-byte.
+- Installed version 0.15.4 (code 40) on the TV box. Bound service reconnects with
+  overlay access, sound disabled and scale 0.5. No live aircraft crossing was
+  observed or injected during this verification.
+
 ## Silent, smaller video aircraft — version 0.15.3
 
 - Removed SoundPool creation, loading, playback and flyby callbacks from the video

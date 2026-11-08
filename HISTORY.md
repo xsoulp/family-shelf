@@ -7,6 +7,13 @@ may have been superseded. Use the [README](README.md) for current setup and
 and exact external library/filename matching keys are preserved. Personal names
 and local addresses have been replaced with generic examples.
 
+## Aircraft at the upper edge with trailing labels — version 0.15.4
+
+Video aircraft now cross near the top edge with a shallow vertical arc. Callsign
+and airline labels trail behind the tail, changing side with flight direction.
+The same trailing label placement applies to screensaver aircraft. Video planes
+remain half-size and silent.
+
 ## Silent, smaller aircraft over video — version 0.15.3
 
 Aircraft over Netflix/Jellyfin now render at half their previous width and height,
